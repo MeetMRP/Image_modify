@@ -9,12 +9,13 @@ class RegisterApi(generics.GenericAPIView):
     def post(self, request):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        user = serializer.save()
+        serializer.save()
+        req_user = serializer.data
         return Response({
-            "user": UserSerializer(user,context=self.get_serializer_context()).data,
+            "user": RegisterSerializer(req_user,context=self.get_serializer_context()).data,
             "message": "User Created Successfully.  Now perform Login to get your token",
         })
-    
+
 class ImageApi(generics.GenericAPIView):
     serializer_class = ImageSerializer
     def post(self, request):

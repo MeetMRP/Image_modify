@@ -10,16 +10,12 @@ class RegisterSerializer(serializers.ModelSerializer):
         }
 
     def create(self, validated_data):
-        user = user.objects.create_user(validated_data['email'],     
+        req_user = user.objects.create_user(validated_data['email'],     
                                         password = validated_data['password'],
                                         first_name=validated_data['first_name'],  
                                         last_name=validated_data['last_name'])
-        return user
+        return req_user
 
-class UserSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = user
-        fields = '__all__'
 
 class ImageSerializer(serializers.ModelSerializer):
     class Meta:
